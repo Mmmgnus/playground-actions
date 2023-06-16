@@ -22,21 +22,11 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - id: set_var
-        run: |
-          content=`cat ./package.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "packageJSON=$content" >> "$GITHUB_ENV"
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Extract version from package.json
+        uses: sergeysova/jq-action@v2
+        id: version
+        with:
+          cmd: 'jq .version package.json -r'
       
-      - name: Get version
-        run: echo "${{ env.packageJSON }}"
+      - name: Show my version
+        run: 'echo "version ${{ steps.version.outputs.value }}"'
