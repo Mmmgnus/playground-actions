@@ -20,17 +20,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-      
-      - name: Store Package version in env
-        run: echo "package_version=${{ steps.package-version.outputs.current-version}}" >> "$GITHUB_ENV"
-  
-  output:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Package version
-        run: echo ${{ env.package_version }}
+        run: echo $GITHUB_REF
