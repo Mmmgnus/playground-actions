@@ -26,5 +26,11 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       
-      - name: Show my version
-        run: 'echo "version ${{ steps.package-version.outputs.current-version}}"'
+      - name: Store Package version in env
+        run: echo "package_version=${{ steps.package-version.outputs.current-version}}" >> "$GITHUB_ENV"
+  
+  output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Package version
+        run: echo ${{ env.package_version }}
