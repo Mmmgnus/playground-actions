@@ -39,4 +39,4 @@ jobs:
           echo test, and deploy your project.
       
       - name: Get version
-        run: echo "${{fromJson(env.packageJSON).version}}"
+        run: echo "${{ env.packageJSON }}"
